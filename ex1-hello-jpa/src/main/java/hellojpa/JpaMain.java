@@ -16,16 +16,7 @@ public class JpaMain {
         tx.begin();
 
         try{
-            //영속
-            Member member = em.find(Member.class, 150L);
-            member.setName("aaaa");
 
-            em.detach(member); //준영속상태됨 -> JPA가 관리 x
-            //-> select query만 나가고 update는 x
-            //em.clear() : 영속성 컨텍스트 통째로 초기화
-            //em.close() : 영속성 컨텍스트 종료
-
-            System.out.println("------");
             tx.commit();
         } catch(Exception e) {
             e.printStackTrace();

@@ -1,37 +1,40 @@
 package hellojpa;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Date;
 
 @Entity //Jpa 사용하는 애라는 걸 인식
 public class Member {
 
     @Id //pk
     private Long id;
-    private String name;
 
-    //jpa는 동적으로 객체 생성을 해야하기 때문에 항상 기본생성자가 있어야 함
-    public Member() {}
+    @Column(name = "name", nullable = false)
+    private String username;
 
-    public Member(Long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
+    private Integer age;
 
-    public Long getId() {
-        return id;
-    }
+    @Enumerated(EnumType.STRING)
+    private RoleType roleType;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdDate;
 
-    public String getName() {
-        return name;
-    }
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastModifinedDate;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    @Lob
+    private String description;
+
+//    create table Member (
+//            id bigint not null,
+//            age integer,
+//            createdDate timestamp,
+//            description clob,
+//            lastModifinedDate timestamp,
+//            roleType varchar(255),
+//    name varchar(255),
+//    primary key (id)
+//    )
+
 }
