@@ -4,37 +4,35 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity //Jpa 사용하는 애라는 걸 인식
+@TableGenerator(
+        name = "member_seq_generator",
+        table = "my_sequences",
+        pkColumnValue = "member_seq", allocationSize = 1
+)
 public class Member {
 
     @Id //pk
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "member_seq_generator")
     private Long id;
 
     @Column(name = "name", nullable = false)
     private String username;
 
-    private Integer age;
+    public Member() {}
 
-    @Enumerated(EnumType.STRING)
-    private RoleType roleType;
+    public Long getId() {
+        return id;
+    }
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdDate;
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date lastModifinedDate;
+    public String getUsername() {
+        return username;
+    }
 
-    @Lob
-    private String description;
-
-//    create table Member (
-//            id bigint not null,
-//            age integer,
-//            createdDate timestamp,
-//            description clob,
-//            lastModifinedDate timestamp,
-//            roleType varchar(255),
-//    name varchar(255),
-//    primary key (id)
-//    )
-
+    public void setUsername(String username) {
+        this.username = username;
+    }
 }
